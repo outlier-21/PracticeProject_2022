@@ -3,7 +3,8 @@
 
 js的多线程通信（第一周）：天气百事通
 
-开发环境为：微信开发者工具
+开发环境为：微信开发者工具 https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
+
 具体思路为：通过和风天气提供的免费API，来实现具体某城市实时天气的查询。
                   然而使用和风天气的API之前，必须得到某个城市的LocationID，于是，可以利用WebWork，
                   创建副线程来获取LocationID，获取后，再发给主线程，主线程利用此ID进行天气的查询
