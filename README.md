@@ -1,23 +1,26 @@
 # PracticeProject_2022
-本次实习内容由两个项目来完成：
 
-js的多线程通信（第一周）：天气百事通
+使用三项技术完成的小项目（webworker / vdom 渲染/jsx编译）
 
-开发环境为：微信开发者工具 https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
+项目功能：本项目为查询实时天气开发，使用和风天气的免费API进行天气查询。三项技术具体体现在：
 
-具体思路为：通过和风天气提供的免费API，来实现具体某城市实时天气的查询。
-                  然而使用和风天气的API之前，必须得到某个城市的LocationID，于是，可以利用WebWork，
-                  创建副线程来获取LocationID，获取后，再发给主线程，主线程利用此ID进行天气的查询
+WebWorker：将使用API来查询天气信息的任务交给WebWorker处理，子线程获取信息后向主线程发送，主线程接受数据后
+           向子线程发送字符串‘RECEIVE’，子线程经过判断自行调用close()销毁。WebWorker的有关函数为index.js文件中的getWeather(id)函数中。
+           
+vdom 渲染和jsx编译：共同负责页面的渲染任务。
+                  vdom主要运用diff算法，具体体现在vdom.js文件中
+                  jsx的编译使用babel，具体体现在index.js文件中，其中包含简单的条件渲染和循环渲染
+                  
+ 
+项目结构：未列出文件无需关注
 
-注意事项：1、微信小程序只允许创建一个Web Worker
-                2、微信小程序对Worker的路径有规定，
-                     Worker的有效代码在路径‘/worker/request’文件夹下
-                     主线程利用Worker的代码在‘/pages/index/index.js’文件中的getWeather函数中
-
-vdom diff jsx编译（第二、三周）:备忘录
-
-具体操作简单，在文件夹中点击index.html在浏览器中打开即可
-
-进入网页之后 
-在输入框中输入有效内容即可添加，点击每一条的项目之后即可删除
-
+根目录
+   |-----------------dist           jsx的编译结果存放处
+        |------------vdom.js        和外层的vdom.js内容相同
+        |------------index.js       jsx被编译
+   |-----------------img            图片静态资源
+   |-----------------node_modules   相关依赖
+   |-----------------.babelrc.js    babel的配置
+   |-----------------index.js       具体的Querier实例
+   |-----------------vdom.js        vdom渲染算法的实现
+   
