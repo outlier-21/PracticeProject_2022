@@ -117,12 +117,7 @@ class Querier extends Component {
                 listNow[1] = { text: '气压：' + that.state.now.pressure + 'hPa' }
                 listNow[2] = { text: '能见度：' + that.state.now.vis + 'km' }
               
-                that.setState(
-                    {
-                        list: listNow,
-                        load: 1
-                    }
-                )
+                
 
                 // 修改背景图片路径
                 let _src 
@@ -141,7 +136,14 @@ class Querier extends Component {
 
                 }
                  
-                 that.setState({ src:_src})
+                 that.setState(
+                    {
+                        list: listNow,
+                        load: 1,
+                        src:_src
+                    }
+                )
+                 
 
                 this.postMessage('RECEIVE')
 

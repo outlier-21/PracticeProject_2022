@@ -18,14 +18,6 @@ function Select(props) {
   }, "\u7701/\u76F4\u8F96\u5E02----\u5E02/\u5E02\u533A----\u53BF/\u533A"));
 }
 
-function Div(props) {
-  return createElement("div", {
-    className: "Div",
-    style: props.style,
-    onChange: props.onChange
-  }, props.children, "  ");
-}
-
 class Querier extends Component {
   constructor(props) {
     super();
@@ -118,11 +110,7 @@ class Querier extends Component {
         };
         listNow[2] = {
           text: '能见度：' + that.state.now.vis + 'km'
-        };
-        that.setState({
-          list: listNow,
-          load: 1
-        }); // 修改背景图片路径
+        }; // 修改背景图片路径
 
         let _src;
 
@@ -135,6 +123,8 @@ class Querier extends Component {
         }
 
         that.setState({
+          list: listNow,
+          load: 1,
           src: _src
         });
         this.postMessage('RECEIVE');
