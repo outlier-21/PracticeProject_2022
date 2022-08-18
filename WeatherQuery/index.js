@@ -10,11 +10,7 @@ function Select(props) {
     </select>
 }
 
-function Div(props)
-{
-    return <div className="Div" style={props.style} onChange={props.onChange}>{props.children}  </div>;
 
-}
 
 
 
