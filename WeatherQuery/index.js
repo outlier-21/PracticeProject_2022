@@ -23,7 +23,7 @@ class Querier extends Component {
         super();
         this.state = {
             location: '请在上方选择您所在的城市',
-            src: './img/weather.jpg',
+            src: 'url("./img/qing.jpg")',
             now: {},
             load: 1,
             list: [{
@@ -77,7 +77,10 @@ class Querier extends Component {
             `onmessage=function(e){
   var id=e.data
   if(e.data=='RECEIVE')
-      close()
+      {
+        close()
+        return;
+        }
 
   getHq(id);
   }
@@ -112,14 +115,12 @@ class Querier extends Component {
                 console.log('收到了', e.data)
                 that.state.now = e.data
 
+            // 修改下方字符
                 var listNow = []
                 listNow[0] = { text: '湿度:' + that.state.now.humidity + '%' }
                 listNow[1] = { text: '气压：' + that.state.now.pressure + 'hPa' }
                 listNow[2] = { text: '能见度：' + that.state.now.vis + 'km' }
-                // listNow[3] = { text: '风向:' + that.state.now.windDir + '' }
-                // listNow[4] = { text: '风速:' + that.state.now.windSpeed + 'Km/h' }
-                // listNow[5] = { text: '风力:' + that.state.now.windScale + '级' }
-
+              
                 that.setState(
                     {
                         list: listNow,
@@ -127,19 +128,24 @@ class Querier extends Component {
                     }
                 )
 
-                if (that.state.now.text.match('晴')) {
-                    document.getElementById('query').style.backgroundImage = "url(./img/qing.jpg)"
+                // 修改背景图片路径
+                let _src 
+
+                    if (that.state.now.text.match('晴')) {
+                    _src="url(./img/qing.jpg)"
                     
                 }
                 else if((that.state.now.text .match('云') || that.state.now.text.match('阴') )){
-                    document.getElementById('query').style.backgroundImage = "url(./img/yin.jpg)"
+                    _src= "url(./img/yin.jpg)"
 
                 }
                 else 
                 {
-                    document.getElementById('query').style.backgroundImage = "url(./img/yu.jpg)"
+                    _src = "url(./img/yu.jpg)"
 
                 }
+                 
+                 that.setState({ src:_src})
 
                 this.postMessage('RECEIVE')
 
@@ -152,14 +158,11 @@ class Querier extends Component {
 
 
     render() {
-        return <div id="query" style=" text-align:center; weight:360px; height:640px; font-family: Georgia; background-image:url('./img/qing.jpg')" >
+        // return <div id="query" style=" text-align:center; weight:360px; height:640px; font-family: Georgia; background-image:url('./img/qing.jpg')" >
+        return <div id="query" style={{textAlign:'center',weight:'360px',height:'640px',fontFamily:'Georgia',backgroundImage:this.state.src }} >
         
-
+            
             <ul className="location">
-
-
-
-
 
                 {/* 地址选择器 */}
                 <Select 
